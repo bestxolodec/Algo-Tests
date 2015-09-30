@@ -1,4 +1,4 @@
-// Copyright (c) 2015 Shvechikov Pavel
+// Copyright (c) 2015
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -37,7 +37,7 @@ int main() {
 }
 
 
-int SubMain(istream& in, ostream& out){
+int SubMain(istream& in, ostream& out) {
     PrintOutput(out, ReadInput(in));
     return 0;
 }

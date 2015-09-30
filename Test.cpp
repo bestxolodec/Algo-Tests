@@ -54,9 +54,6 @@ void Test(string input_filename, string result_filename,
       cerr << "Got     :   " << got_string << "\n";
       correct = false;
     }
-    // expected >> std::ws;
-    // program_output >> std::ws;
-
   }
   if (correct) {
     cerr << "ALL TESTS HAVE BEEN COMPLETED WITHOUT MISSES" << endl;
