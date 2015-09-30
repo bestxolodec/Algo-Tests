@@ -24,7 +24,6 @@ void Test(string input_filename, string result_filename,
 
   int next_byte;
   while ((next_byte = input.peek()) != EOF) {
-    cerr << (char)next_byte << endl;
     foo(input, result);
     // eat leading whitespaces
     input >> std::ws;
