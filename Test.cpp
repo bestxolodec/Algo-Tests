@@ -15,34 +15,58 @@ void Test(string input_filename, string result_filename,
   // read input data from file
   ifstream input;
   input.open(input_filename);
+  if (!input.is_open()) {
+    cerr << "Cannot open file: " << input_filename << "\n";
+    throw std::exception();
+  }
 
 
-  // actually run the program and write output to result_filename
   ofstream result;
   result.open(result_filename);
   // input.good() && !input.eof()
+  if (!result.is_open()) {
+    cerr << "Cannot open file: " << result_filename << "\n";
+    throw std::exception();
+  }
 
-  int next_byte;
-  while ((next_byte = input.peek()) != EOF) {
-    foo(input, result);
+  // actually run the program and write output to result_filename
+  std::string line;
+  while (std::getline(input, line)) {
+    std::stringstream in(line);
+    // std::cout << "Input: " << in.str() << endl;
+    foo(in, result);
+    // std::cout << "Input after: " << in.str() << endl;
     // eat leading whitespaces
     input >> std::ws;
   }
+
+  // while ((next_byte = input.peek()) != EOF) {
+    // foo(input, result);
+    // // eat leading whitespaces
+    // input >> std::ws;
+  // }
   result.close();
   input.close();
 
 
   ifstream expected;
   expected.open(correct_result_filename);
+  if (!expected.is_open()) {
+    cerr << "Cannot open file: " << correct_result_filename << "\n";
+    throw std::exception();
+  }
 
   ifstream program_output;
   program_output.open(result_filename);
-
+  if (!program_output.is_open()) {
+    cerr << "Cannot open file: " << result_filename << "\n";
+    throw std::exception();
+  }
 
   int j = 0;
   bool correct = true;
   string got_string, expected_string;
-  while (expected.good() && program_output.good()) {
+  while (expected.good()) {
     j++;
     std::getline(expected, expected_string);
     std::getline(program_output, got_string);
@@ -53,6 +77,8 @@ void Test(string input_filename, string result_filename,
       cerr << "Expected:   " << expected_string << "\n";
       cerr << "Got     :   " << got_string << "\n";
       correct = false;
+    } else {
+      cerr <<  j << "-th test passed\n" ;
     }
   }
   if (correct) {
