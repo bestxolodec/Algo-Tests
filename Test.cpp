@@ -29,6 +29,8 @@ void Test(string input_filename, string result_filename,
     throw std::exception();
   }
 
+  // should be rewritten to support  _INPUT_ @ _OUTPUT_ format
+  // see here http://stackoverflow.com/questions/236129/split-a-string-in-c
   // actually run the program and write output to result_filename
   std::string line;
   while (std::getline(input, line)) {
