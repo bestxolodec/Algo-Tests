@@ -65,11 +65,22 @@ void Test(string input_filename, string result_filename,
     throw std::exception();
   }
 
+
+
+  ifstream input_data;
+  input_data.open(input_filename);
+  if (!input_data.is_open()) {
+    cerr << "Cannot open file: " << input_filename << "\n";
+    throw std::exception();
+  }
+
+
   int j = 0;
   bool correct = true;
-  string got_string, expected_string;
+  string got_string, expected_string, input_line;
   while (expected.good()) {
     j++;
+    std::getline(input_data, input_line);
     std::getline(expected, expected_string);
     std::getline(program_output, got_string);
     // cerr << got_string << endl;
@@ -78,6 +89,7 @@ void Test(string input_filename, string result_filename,
       cerr << j << "-the strings are not equal" << "\n";
       cerr << "Expected:   " << expected_string << "\n";
       cerr << "Got     :   " << got_string << "\n";
+      cerr << "On input:   " << input_line << "\n";
       correct = false;
     } else {
       cerr <<  j << "-th test passed\n" ;
